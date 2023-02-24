@@ -1,8 +1,8 @@
 package io.github.utils;
 
-import java.io.IOException;
-import java.util.Properties;
-
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import io.github.constant.EncodeConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -10,16 +10,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-
-import io.github.constant.EncodeConstant;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
- * 错误码配套工具类
- * 
  * @author shenjunyu
- * @since 2023/2/23
+ * @email sjy13149@cnki.net
+ * @since 2023/2/23 16:22
  */
 public class ErrorCodeUtils {
 
@@ -68,7 +65,7 @@ public class ErrorCodeUtils {
      * @return
      */
     public static String getValue(String errorCode) {
-        Properties props = (Properties)PROPERTIES_CACHE.getIfPresent(ERROR_CODE);
+        Properties props = (Properties) PROPERTIES_CACHE.getIfPresent(ERROR_CODE);
         return props.getProperty(errorCode);
     }
 
@@ -80,7 +77,7 @@ public class ErrorCodeUtils {
      * @return
      */
     public static String getValue(String errorCode, Object... objects) {
-        Properties props = (Properties)PROPERTIES_CACHE.getIfPresent(ERROR_CODE);
+        Properties props = (Properties) PROPERTIES_CACHE.getIfPresent(ERROR_CODE);
         String value = props.getProperty(errorCode);
         for (int i = 0; i < objects.length; i++) {
             value = value.replace("{" + i + "}", String.valueOf(objects[i]));
